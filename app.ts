@@ -29,7 +29,7 @@ Object.keys(oldTranslationFile).forEach((key: string) => {
       conflictingTranslation: newTranslationFile[key]
     });
 
-    resultingTranslationFile[key] = oldTranslationFile[key];
+    resultingTranslationFile[key] = newTranslationFile[key];
   } else if (oldTranslationFile[key] === '') {
     // there has no translation been given yet, so set it
     resultingTranslationFile[key] = newTranslationFile[key];
@@ -62,5 +62,13 @@ conflictingTranslations.forEach((conflict: Translation & { conflictingTranslatio
     conflict.key + ':\t' + conflict.translation + ' --> ' + conflict.conflictingTranslation + '\n';
   fs.appendFileSync(logFilePath, printOut);
 });
+
+// const conflictingTranslationFile: TranslationFile = {};
+// conflictingTranslations.forEach((conflict: Translation & { conflictingTranslation: string }) => {
+//   conflictingTranslationFile[conflict.key] = conflict.conflictingTranslation;
+// });
+//
+// fs.writeFileSync(path.join('./data', 'result_conflicting.json'),
+//   JSON.stringify(conflictingTranslationFile, null, 2));
 
 

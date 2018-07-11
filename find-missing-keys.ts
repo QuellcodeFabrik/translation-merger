@@ -2,27 +2,35 @@ interface TranslationFile {
   [index: string]: string;
 }
 
-const englishTranslationFile: TranslationFile = require('./data/en.json');
-const italianTranslationFile: TranslationFile = require('./data/it.json');
+const germanTranslationFile: TranslationFile = require('./data/sorted.json');
+const italianTranslationFile: TranslationFile = require('./data/old.json');
+const resultingTranslationFile: TranslationFile = {};
 const missingKeysInItalianLanguage: string[] = [];
-const missingKeysInEnglishLanguage: string[] = [];
+const missingKeysInGermanLanguage: string[] = [];
 
-Object.keys(englishTranslationFile).forEach((key: string) => {
+Object.keys(germanTranslationFile).forEach((key: string) => {
+  resultingTranslationFile[key] = germanTranslationFile[key];
+});
+
+Object.keys(germanTranslationFile).forEach((key: string) => {
   if (!italianTranslationFile.hasOwnProperty(key)) {
     missingKeysInItalianLanguage.push(key);
   }
 });
 
 Object.keys(italianTranslationFile).forEach((key: string) => {
-  if (!englishTranslationFile.hasOwnProperty(key)) {
-    missingKeysInEnglishLanguage.push(key);
+  if (!germanTranslationFile.hasOwnProperty(key)) {
+    resultingTranslationFile[key] = '';
+    missingKeysInGermanLanguage.push(key);
+  } else {
+    resultingTranslationFile[key] = germanTranslationFile[key];
   }
 });
 
 // log status to console
-if (missingKeysInEnglishLanguage.length > 0) {
-  console.log('Missing keys in English translations:\n');
-  missingKeysInEnglishLanguage.forEach((key: string) => {
+if (missingKeysInGermanLanguage.length > 0) {
+  console.log('Missing keys in new translations:\n');
+  missingKeysInGermanLanguage.forEach((key: string) => {
     console.log(key);
   });
 }
@@ -30,13 +38,11 @@ if (missingKeysInEnglishLanguage.length > 0) {
 console.log('');
 
 if (missingKeysInItalianLanguage.length > 0) {
-  console.log('Missing keys in Italian translations:\n');
+  console.log('Missing keys in old translations:\n');
   missingKeysInItalianLanguage.forEach((key: string) => {
     console.log(key);
   });
 }
-
-
 
 
 
