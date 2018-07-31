@@ -8,7 +8,9 @@ interface TranslationFile {
 const data: TranslationFile = require('./data/result.json');
 const result: any = {};
 
-Object.keys(data).sort().forEach((key: string) => {
+Object.keys(data).sort((a: string, b: string) => {
+  return a.toLowerCase().localeCompare(b.toLowerCase());
+}).forEach((key: string) => {
   result[key] = data[key];
 });
 

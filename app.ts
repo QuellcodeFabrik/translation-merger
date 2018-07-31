@@ -29,7 +29,7 @@ Object.keys(oldTranslationFile).forEach((key: string) => {
       conflictingTranslation: newTranslationFile[key]
     });
 
-    resultingTranslationFile[key] = newTranslationFile[key];
+    resultingTranslationFile[key] = oldTranslationFile[key];
   } else if (oldTranslationFile[key] === '') {
     // there has no translation been given yet, so set it
     resultingTranslationFile[key] = newTranslationFile[key];
@@ -41,7 +41,7 @@ Object.keys(oldTranslationFile).forEach((key: string) => {
 
 // add the new translation keys and translations
 Object.keys(newTranslationFile).forEach((key: string) => {
-  if (!oldTranslationFile.hasOwnProperty(key)) {
+  if (!oldTranslationFile.hasOwnProperty(key) && newTranslationFile[key] !== '') {
     resultingTranslationFile[key] = newTranslationFile[key];
   }
 });

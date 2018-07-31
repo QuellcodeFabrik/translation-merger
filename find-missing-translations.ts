@@ -1,7 +1,3 @@
-interface TranslationFile {
-  [index: string]: string;
-}
-
 const translationFile: TranslationFile = require('./data/de.json');
 const missingTranslations: string[] = [];
 
